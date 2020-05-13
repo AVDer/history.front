@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQuery, gql } from '@apollo/client';
 
 import Timeline from './Timeline';
 
@@ -34,10 +35,24 @@ const DateLabelStyle = styled.p`
 
 const kColors = ["blue", "red"];
 
+const GET_LEADERS = gql`
+    query {
+        leaders {nameOriginal}
+    }
+`;
+
 const TimelineField = (props) => {
     const lands = Array.from(new Set(props.data.map(record => record.land).flat()));
     const [timeStart, timeEnd] = props.range.split('-');
     const redlinePos = (props.redline - timeStart) / (timeEnd - timeStart) * 90 + 5;
+
+    // query hook
+    const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
+
+    // if the data is loading, display a loading message
+    if (loading) return <p>Loading...</p>;
+    // if there is an error fetching the data, display an error message
+    if (error) return <p>Error!</p>;
 
     return (
         <TimelineFieldStyle>

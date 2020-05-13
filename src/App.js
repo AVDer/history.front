@@ -11,7 +11,8 @@ import TimelineField from './components/TimelineField'
 import data from './data/data.json';
 
 // configure our API URI & cache
-const uri = process.env.API_URI;
+const uri = process.env.REACT_APP_API_URI;
+
 const cache = new InMemoryCache();
 
 // configure Apollo Client
