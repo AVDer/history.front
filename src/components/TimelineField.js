@@ -37,15 +37,16 @@ const kColors = ["blue", "red"];
 
 const GET_LEADERS = gql`
     query {
-        leaders {nameOriginal}
+        leaders {
+        nameLatin
+        land
+        start {y}
+        end {y}
+        }
     }
 `;
 
 const TimelineField = (props) => {
-    const lands = Array.from(new Set(props.data.map(record => record.land).flat()));
-    const [timeStart, timeEnd] = props.range.split('-');
-    const redlinePos = (props.redline - timeStart) / (timeEnd - timeStart) * 90 + 5;
-
     // query hook
     const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
 
@@ -54,11 +55,18 @@ const TimelineField = (props) => {
     // if there is an error fetching the data, display an error message
     if (error) return <p>Error!</p>;
 
+    let leader_data = data['leaders'];
+    console.log(leader_data);
+
+    const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
+    const [timeStart, timeEnd] = props.range.split('-');
+    const redlinePos = (props.redline - timeStart) / (timeEnd - timeStart) * 90 + 5;
+
     return (
         <TimelineFieldStyle>
             {Array.from(lands.keys()).map(x => (
                 <Timeline key={x} color={kColors[x]} land={lands[x]} timeStart={timeStart} timeEnd={timeEnd}
-                data={props.data.filter(
+                data={leader_data.filter(
                     v => v.land.includes(lands[x]) && v.end.y > timeStart && v.start.y < timeEnd
                 )}/>
             ))}
