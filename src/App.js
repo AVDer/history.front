@@ -3,12 +3,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import './App.css';
 
-import Field from './components/Field'
-import Text from './components/Text'
-
-import TimelineField from './components/TimelineField'
-
 import data from './data/data.json';
+import MainPage from './pages/main'
 
 // configure our API URI & cache
 const uri = process.env.REACT_APP_API_URI;
@@ -24,15 +20,11 @@ const client = new ApolloClient({
 
 function App() {
 
+
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Field>
-          <Text>
-            Some Text
-          </Text>
-          <TimelineField range='800 - 1000' redline='850' data={data}/>
-        </Field>
+        <MainPage/>
       </div>
     </ApolloProvider>
   );
