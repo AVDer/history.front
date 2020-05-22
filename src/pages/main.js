@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Field from '../components/Field'
 import Settings from '../components/Settings'
@@ -11,13 +10,16 @@ import TimelineField from '../components/TimelineField'
 
 const MainPage = (props) => {
 
-  let startTime = 800;
-  let EndTime = 1000;
-  let redlineTime = 860;
+  let displayDate = {startDate: 800, endDate: 1000, redlineDate: 860};
+  let dateUpdateFn;
 
-  function updateTime(timeSettings) {
-    console.log(timeSettings);
-    startTime = timeSettings.startTime;
+  function updateDate(dateSettings) {
+    displayDate = dateSettings;
+    dateUpdateFn(displayDate);
+  }
+
+  function updateDateSetter(setDateFn) {
+    dateUpdateFn = setDateFn;
   }
 
   return (
@@ -25,8 +27,8 @@ const MainPage = (props) => {
       <Chapter>
         Some Text
       </Chapter>
-      <Settings updateTime={updateTime}/>
-      <TimelineField range={startTime + ' - ' + EndTime} redline={redlineTime} />
+      <Settings updateTime={updateDate}/>
+      <TimelineField updateDateSetter={updateDateSetter} />
     </Field>
   )
 }

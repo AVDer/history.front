@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 
@@ -47,6 +47,9 @@ const GET_LEADERS = gql`
 `;
 
 const TimelineField = (props) => {
+
+    const [dateData, setDateData] = useState({startDate: 800, endDate: 1000, redlineDate: 870});
+    props.updateDateSetter(setDateData);
     // query hook
     const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
 
@@ -56,11 +59,11 @@ const TimelineField = (props) => {
     if (error) return <p>Error!</p>;
 
     let leader_data = data['leaders'];
-    console.log(leader_data);
 
     const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
-    const [timeStart, timeEnd] = props.range.split('-');
-    const redlinePos = (props.redline - timeStart) / (timeEnd - timeStart) * 90 + 5;
+    const timeStart = dateData.startDate;
+    const timeEnd = dateData.endDate;
+    const redlinePos = (dateData.redlineDate - timeStart) / (timeEnd - timeStart) * 90 + 5;
 
     return (
         <TimelineFieldStyle>
@@ -72,7 +75,7 @@ const TimelineField = (props) => {
             ))}
             <RedlineStyle pos={redlinePos}/>
             <DateLabelStyle Pos='Left'> {timeStart} </DateLabelStyle>
-            <DateLabelStyle Pos='Redline' rl={redlinePos + '%'}> {props.redline} </DateLabelStyle>
+            <DateLabelStyle Pos='Redline' rl={redlinePos + '%'}> {dateData.redlineDate} </DateLabelStyle>
             <DateLabelStyle Pos='Right'>{timeEnd} </DateLabelStyle>
         </TimelineFieldStyle>
     )
