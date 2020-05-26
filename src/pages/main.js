@@ -1,11 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import Field from '../components/Field'
 import Settings from '../components/Settings'
-import Chapter from '../components/Chapter'
 
 import TimelineField from '../components/TimelineField'
 
+const Header = styled.p`
+    background-color: cornsilk;
+    font-family: 'Kurale';
+    font-size: 24px;
+    
+    padding: 20px;
+    margin: 20px;
+
+    text-align: center;
+
+    &::first-letter {
+        font-size: 28px;
+        font-weight: bold;
+        color: crimson;
+    }
+`;
 
 
 const MainPage = () => {
@@ -24,9 +40,9 @@ const MainPage = () => {
 
   return (
     <Field>
-      <Chapter>
-        Some Text
-      </Chapter>
+      <Header>
+        Timeline
+      </Header>
       <Settings updateTime={updateDate}/>
       <TimelineField updateDateSetter={updateDateSetter} />
     </Field>

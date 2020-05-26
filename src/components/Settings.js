@@ -10,13 +10,9 @@ import Chapter from './Chapter';
 
 const Settings = (props) => {
 
-    const [values, setValues] = useState();
+    const [values, setValues] = useState({startDate: 800, endDate: 1000, redlineDate: 870});
 
     const onChange = event => {
-        setValues({
-          ...values,
-          [event.target.name]: event.target.value
-        });
 
         if (event.target.name === 'landSelector') {
             //event.persist();
@@ -29,6 +25,14 @@ const Settings = (props) => {
                 [event.target.name]: selectedLands
             });
         }
+        else {
+            setValues({
+                ...values,
+                [event.target.name]: event.target.value
+            });
+        }
+
+        console.log(event.target.value);
 
       };
 
@@ -60,7 +64,7 @@ const Settings = (props) => {
                             <Form.Group as={Row} controlId="redlineDate">
                                 <Form.Label column sm="2">Red line:</Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type="number" name="redlineDate" placeholder="Date: YYYY" onChange={onChange} />
+                                    <Form.Control type="range" min={values.startDate} max={values.endDate}  name="redlineDate" onChange={onChange} />
                                 </Col>                            
                             </Form.Group>
 
