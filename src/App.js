@@ -3,7 +3,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import './App.css';
 
-import data from './data/data.json';
+//import data from './data/data.json';
 import MainPage from './pages/main'
 
 // configure our API URI & cache

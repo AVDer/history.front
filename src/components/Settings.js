@@ -7,10 +7,12 @@ import Row from 'react-bootstrap/Row';
 
 import Chapter from './Chapter';
 
+import {kDefaultDate} from '../constants';
+
 
 const Settings = (props) => {
 
-    const [values, setValues] = useState({startDate: 800, endDate: 1000, redlineDate: 870});
+    const [values, setValues] = useState(kDefaultDate);
 
     const onChange = event => {
 

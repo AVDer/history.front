@@ -6,6 +6,8 @@ import Settings from '../components/Settings'
 
 import TimelineField from '../components/TimelineField'
 
+import {kDefaultDate} from '../constants';
+
 const Header = styled.p`
     background-color: cornsilk;
     font-family: 'Kurale';
@@ -26,7 +28,7 @@ const Header = styled.p`
 
 const MainPage = () => {
 
-  let displayDate = {startDate: 800, endDate: 1000, redlineDate: 860};
+  let displayDate = kDefaultDate;
   let dateUpdateFn;
 
   function updateDate(dateSettings) {

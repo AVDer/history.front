@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 
 import Timeline from './Timeline';
+import {kDefaultDate} from '../constants';
 
 const TimelineFieldStyle = styled.div`
     position: relative;
@@ -48,7 +49,7 @@ const GET_LEADERS = gql`
 
 const TimelineField = (props) => {
 
-    const [dateData, setDateData] = useState({startDate: 800, endDate: 1000, redlineDate: 870});
+    const [dateData, setDateData] = useState(kDefaultDate);
     props.updateDateSetter(setDateData);
     // query hook
     const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
