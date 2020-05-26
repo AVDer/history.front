@@ -8,7 +8,7 @@ import TimelineField from '../components/TimelineField'
 
 
 
-const MainPage = (props) => {
+const MainPage = () => {
 
   let displayDate = {startDate: 800, endDate: 1000, redlineDate: 860};
   let dateUpdateFn;

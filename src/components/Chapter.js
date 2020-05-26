@@ -10,6 +10,7 @@ const TextParagraph = styled.div`
     padding: 20px;
     margin: 20px;
 
+    border 1px solid black;
     border-radius: 10px;
     box-shadow: 10px 10px 10px rgba(0,0,0,.5);
 
