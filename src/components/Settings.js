@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useQuery, gql } from '@apollo/client';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -9,11 +10,11 @@ import Chapter from './Chapter';
 
 import {kDefaultDate} from '../constants';
 
-
 const Settings = (props) => {
 
     const [values, setValues] = useState(kDefaultDate);
     const [rlValue, rlSetValue] = useState(kDefaultDate.redlineDate);
+    const [landsValue, landsSetValue] = useState(["Loading..."]);
 
     const onChange = event => {
 
@@ -41,6 +42,20 @@ const Settings = (props) => {
         onChange(event);
     };
 
+    let GET_LANDS = gql`
+        query {
+            lands(start: ${values.startDate}, end: ${values.endDate})
+        }
+    `;
+
+    const { data, loading, error, fetchMore } = useQuery(GET_LANDS);
+    if (loading) console.log("Loading...");
+    else if (error) console.log("Error!");
+    else {
+        if (data.lands !== landsValue)
+            landsSetValue(data.lands);
+    }
+
     return (
         <Chapter>
                 <Form onSubmit={event => {
@@ -55,21 +70,21 @@ const Settings = (props) => {
                             <Form.Group as={Row} controlId="startDate">
                                 <Form.Label column sm="2">Start date:</Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type="number" name="startDate" placeholder="Date: YYYY" onChange={onChange} />
+                                    <Form.Control type="number" name="startDate" placeholder="Date: YYYY" defaultValue={kDefaultDate.startDate} onChange={onChange} />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="endDate">
                                 <Form.Label column sm="2">End date:</Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type="number" name="endDate" placeholder="Date: YYYY" onChange={onChange} />
+                                    <Form.Control type="number" name="endDate" placeholder="Date: YYYY" defaultValue={kDefaultDate.endDate} onChange={onChange} />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="redlineDate">
                                 <Form.Label column sm="2">Red line:</Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type="range" min={values.startDate} max={values.endDate}  name="redlineDate" onChange={redlineChange} />
+                                    <Form.Control type="range" min={values.startDate} max={values.endDate} defaultValue={kDefaultDate.redlineDate}  name="redlineDate" onChange={redlineChange} />
                                 </Col>                            
                             </Form.Group>
 
@@ -87,18 +102,10 @@ const Settings = (props) => {
 
                             <Form.Group controlId="landSelector">
                                 <Form.Label>Lands:</Form.Label>
-                                <Form.Control as="select" multiple name="landSelector" onChange={onChange}>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <Form.Control as="select" multiple name="landSelector" onChange={onChange} >
+                                    {landsValue.map((land) => <option key={land}>{land}</option>)}
                                 </Form.Control>
                             </Form.Group>
-                           
-                            <Button>
-                                Refresh
-                            </Button>
 
                         </Col>
 
