@@ -13,8 +13,7 @@ const Header = styled.p`
     font-family: 'Kurale';
     font-size: 24px;
     
-    padding: 20px;
-    margin: 20px;
+    margin-bottom: 20px;
 
     text-align: center;
 

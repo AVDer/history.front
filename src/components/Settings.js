@@ -13,6 +13,7 @@ import {kDefaultDate} from '../constants';
 const Settings = (props) => {
 
     const [values, setValues] = useState(kDefaultDate);
+    const [rlValue, rlSetValue] = useState(kDefaultDate.redlineDate);
 
     const onChange = event => {
 
@@ -33,10 +34,12 @@ const Settings = (props) => {
                 [event.target.name]: event.target.value
             });
         }
+    };
 
-        console.log(event.target.value);
-
-      };
+    const redlineChange = event => {
+        rlSetValue(event.target.value);
+        onChange(event);
+    };
 
     return (
         <Chapter>
@@ -66,7 +69,13 @@ const Settings = (props) => {
                             <Form.Group as={Row} controlId="redlineDate">
                                 <Form.Label column sm="2">Red line:</Form.Label>
                                 <Col sm="10">
-                                    <Form.Control type="range" min={values.startDate} max={values.endDate}  name="redlineDate" onChange={onChange} />
+                                    <Form.Control type="range" min={values.startDate} max={values.endDate}  name="redlineDate" onChange={redlineChange} />
+                                </Col>                            
+                            </Form.Group>
+
+                            <Form.Group controlId="redlineLabel" >
+                                <Col sm={{span: 2, offset: 6}} >
+                                    <Form.Control type="input" name="redlineLabel" value={rlValue} readOnly={true} style={{textAlign: "center"}}/>
                                 </Col>                            
                             </Form.Group>
 
@@ -86,7 +95,7 @@ const Settings = (props) => {
                                     <option>5</option>
                                 </Form.Control>
                             </Form.Group>
-
+                           
                             <Button>
                                 Refresh
                             </Button>
