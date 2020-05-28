@@ -28,15 +28,21 @@ const Header = styled.p`
 const MainPage = () => {
 
   let displayDate = kDefaultDate;
+  let displayLands = [];
   let dateUpdateFn;
+  let landUpdateFn;
 
-  function updateDate(dateSettings) {
+  function updateSettings(dateSettings, landsSettings) {
     displayDate = dateSettings;
+    displayLands = landsSettings;
+    console.log(displayLands);
     dateUpdateFn(displayDate);
+    landUpdateFn(displayLands);
   }
 
-  function updateDateSetter(setDateFn) {
+  function updateDateSetter(setDateFn, setLandFn) {
     dateUpdateFn = setDateFn;
+    landUpdateFn = setLandFn;
   }
 
   return (
@@ -44,7 +50,7 @@ const MainPage = () => {
       <Header>
         Timeline
       </Header>
-      <Settings updateTime={updateDate}/>
+      <Settings updateTime={updateSettings}/>
       <TimelineField updateDateSetter={updateDateSetter} />
     </Field>
   )

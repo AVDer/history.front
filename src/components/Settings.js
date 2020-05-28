@@ -16,23 +16,21 @@ const Settings = (props) => {
     const [rlValue, rlSetValue] = useState(kDefaultDate.redlineDate);
     const [landsValue, landsSetValue] = useState(["Loading..."]);
 
+    let selectedLands = [];
+
     const onChange = event => {
 
         if (event.target.name === 'landSelector') {
             //event.persist();
-            let selectedLands = [];
+            selectedLands = [];
             for (let i = 0; i < event.target.options.length; ++i) {
                 if (event.target.options[i].selected) selectedLands.push(event.target.options[i].innerHTML);
             }
-            setValues({
-                ...values,
-                [event.target.name]: selectedLands
-            });
         }
         else {
             setValues({
                 ...values,
-                [event.target.name]: event.target.value
+                [event.target.name]: parseInt(event.target.value)
             });
         }
     };
@@ -44,7 +42,7 @@ const Settings = (props) => {
 
     let GET_LANDS = gql`
         query {
-            lands(start: ${values.startDate}, end: ${values.endDate})
+            lands(start: ${parseInt(values.startDate)}, end: ${parseInt(values.endDate)})
         }
     `;
 
@@ -60,7 +58,7 @@ const Settings = (props) => {
         <Chapter>
                 <Form onSubmit={event => {
                     event.preventDefault();
-                    props.updateTime(values);
+                    props.updateTime(values, selectedLands);
                 }}>
 
                     <Form.Row>

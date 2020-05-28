@@ -34,7 +34,7 @@ const DateLabelStyle = styled.p`
     bottom: 0;
 `;
 
-const kColors = ["blue", "red"];
+const kColors = ["blue", "red", "green"];
 
 const GET_LEADERS = gql`
     query {
@@ -50,7 +50,8 @@ const GET_LEADERS = gql`
 const TimelineField = (props) => {
 
     const [dateData, setDateData] = useState(kDefaultDate);
-    props.updateDateSetter(setDateData);
+    const [landData, setLandData] = useState([]);
+    props.updateDateSetter(setDateData, setLandData);
     // query hook
     const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
 
@@ -61,17 +62,17 @@ const TimelineField = (props) => {
 
     let leader_data = data['leaders'];
 
-    const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
+    //const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
     const timeStart = dateData.startDate;
     const timeEnd = dateData.endDate;
     const redlinePos = (dateData.redlineDate - timeStart) / (timeEnd - timeStart) * 90 + 5;
 
     return (
         <TimelineFieldStyle>
-            {Array.from(lands.keys()).map(x => (
-                <Timeline key={x} color={kColors[x]} land={lands[x]} timeStart={timeStart} timeEnd={timeEnd}
+            {Array.from(landData.keys()).map(x => (
+                <Timeline key={x} color={kColors[x]} land={landData[x]} timeStart={timeStart} timeEnd={timeEnd}
                 data={leader_data.filter(
-                    v => v.land.includes(lands[x]) && v.end.y > timeStart && v.start.y < timeEnd
+                    v => v.land.includes(landData[x]) && v.end.y > timeStart && v.start.y < timeEnd
                 )}/>
             ))}
             <RedlineStyle pos={redlinePos}/>
@@ -83,5 +84,3 @@ const TimelineField = (props) => {
 }
 
 export default TimelineField;
-
-// v => v.land.includes(lands[x] && v.end.y > tstart
