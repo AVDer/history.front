@@ -73,7 +73,9 @@ const TimelineField = (props) => {
                 <Timeline key={x} color={kColors[x]} land={landData[x]} timeStart={timeStart} timeEnd={timeEnd}
                 data={leader_data.filter(
                     v => v.land.includes(landData[x]) && v.end.y > timeStart && v.start.y < timeEnd
-                )}/>
+                )}
+                itemSelectFn={props.itemSelectFn}
+                />
             ))}
             <RedlineStyle pos={redlinePos}/>
             <DateLabelStyle Pos='Left'> {timeStart} </DateLabelStyle>

@@ -48,7 +48,11 @@ const Timeline = (props) => {
                     {props.land}
                 </Caption>
                 {     
-                    props.data.map(x => (<Period color={props.color} timeStart={props.timeStart} timeEnd={props.timeEnd} value={x} key={id++}/>))
+                    props.data.map(x => (
+                    <Period color={props.color} timeStart={props.timeStart} timeEnd={props.timeEnd} value={x} key={id++}
+                    itemSelectFn = {props.itemSelectFn}
+                    />
+                        ))
                 }
             </Line>
         </React.Fragment>

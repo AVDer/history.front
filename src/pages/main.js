@@ -40,7 +40,7 @@ const MainPage = () => {
   function updateSettings(dateSettings, landsSettings) {
     displayDate = dateSettings;
     displayLands = landsSettings;
-    console.log(displayLands);
+    //console.log(displayLands);
     dateUpdateFn(displayDate);
     landUpdateFn(displayLands);
   }
@@ -48,6 +48,10 @@ const MainPage = () => {
   function updateDateSetter(setDateFn, setLandFn) {
     dateUpdateFn = setDateFn;
     landUpdateFn = setLandFn;
+  }
+
+  function newItemSelected(item) {
+    console.log(item)
   }
 
   return (
@@ -66,7 +70,7 @@ const MainPage = () => {
         </Row>
       </Container>
       
-      <TimelineField updateDateSetter={updateDateSetter} />
+      <TimelineField updateDateSetter={updateDateSetter} itemSelectFn={newItemSelected}/>
     </Field>
   )
 }

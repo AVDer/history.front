@@ -30,8 +30,8 @@ const Information = (props) => {
         <Chapter>
             <div style={{textAlign: "center"}}>
                 <img src={logo} width='50%' alt=''></img>
-                <p class="sizeBig">{values.name}</p>
-                <p class="sizeNormal">{startDateString + ' - ' + endDateString}</p>
+                <p className="sizeBig">{values.name}</p>
+                <p className="sizeNormal">{startDateString + ' - ' + endDateString}</p>
             </div>
         </Chapter>
     )
