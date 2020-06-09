@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 import Field from '../components/Field'
 import Settings from '../components/Settings'
+import Information from '../components/Information'
 
 import TimelineField from '../components/TimelineField'
 
@@ -50,7 +55,17 @@ const MainPage = () => {
       <Header>
         Timeline
       </Header>
-      <Settings updateTime={updateSettings}/>
+      <Container fluid>
+        <Row>
+          <Col sm="8">
+            <Settings updateTime={updateSettings}/>
+          </Col>
+          <Col sm="4">
+            <Information/>
+          </Col>
+        </Row>
+      </Container>
+      
       <TimelineField updateDateSetter={updateDateSetter} />
     </Field>
   )

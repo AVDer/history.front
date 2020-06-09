@@ -10,13 +10,13 @@ import Chapter from './Chapter';
 
 import {kDefaultDate} from '../constants';
 
+let selectedLands = [];
+
 const Settings = (props) => {
 
     const [values, setValues] = useState(kDefaultDate);
     const [rlValue, rlSetValue] = useState(kDefaultDate.redlineDate);
     const [landsValue, landsSetValue] = useState(["Loading..."]);
-
-    let selectedLands = [];
 
     const onChange = event => {
 

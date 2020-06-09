@@ -4,6 +4,14 @@
   */
 }
 
+p.sizeNormal {
+  font-size: 20px;
+}
+
+p.sizeBig {
+  font-size: 30px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
