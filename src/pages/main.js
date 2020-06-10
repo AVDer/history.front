@@ -36,6 +36,7 @@ const MainPage = () => {
   let displayLands = [];
   let dateUpdateFn;
   let landUpdateFn;
+  let infoUpdateFn;
 
   function updateSettings(dateSettings, landsSettings) {
     displayDate = dateSettings;
@@ -51,7 +52,12 @@ const MainPage = () => {
   }
 
   function newItemSelected(item) {
-    console.log(item)
+    console.log(item);
+    infoUpdateFn(item);
+  }
+
+  function updateInfoSetter(setInfoFn) {
+    infoUpdateFn = setInfoFn;
   }
 
   return (
@@ -65,7 +71,7 @@ const MainPage = () => {
             <Settings updateTime={updateSettings}/>
           </Col>
           <Col sm="4">
-            <Information/>
+            <Information updateInfoSetter={updateInfoSetter}/>
           </Col>
         </Row>
       </Container>

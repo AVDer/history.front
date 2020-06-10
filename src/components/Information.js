@@ -6,15 +6,19 @@ import logo from '../images/logo512.png';
 
 const dateToString = (dateStruct) => {
     let annoDomino = true;
-    if (dateStruct.y < 0) {
+    let year = dateStruct.y;
+    if (year < 0) {
         annoDomino = false;
-        dateStruct.y *= -1;
+        year *= -1;
     }
     let dateString = '';
+    /*
     if (dateStruct.d < 10) dateString += '0';
     dateString += (dateStruct.d + '/');
     if (dateStruct.m < 10) dateString += '0';
-    dateString += (dateStruct.m + '/' + dateStruct.y + ' ');
+    dateString += (dateStruct.m + '/' + year + ' ');
+    */
+    dateString += year + ' ';
     dateString += (annoDomino ? 'AD' : 'BC');
     return dateString;
 }
@@ -22,6 +26,8 @@ const dateToString = (dateStruct) => {
 const Information = (props) => {
 
     const [values, setValues] = useState({name: 'N/A', start: {d: 1, m: 1, y: 1000}, end: {d: 2, m: 2, y: 2000}, url: ''});
+
+    props.updateInfoSetter(setValues);
 
     const startDateString = dateToString(values.start);
     const endDateString = dateToString(values.end);
