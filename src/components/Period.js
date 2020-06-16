@@ -38,7 +38,7 @@ const PeriodLabel = styled.p`
 
     color: inherit;
     
-    width: 200px;
+    width: 500px;
 `;
 
 const Period = (props) => {
@@ -48,7 +48,7 @@ const Period = (props) => {
     const width = (end - start) * 100 / (props.timeEnd - props.timeStart);
     return (
         <Test color={props.color} left={left} width={width}
-            onMouseEnter={() => props.itemSelectFn({name: props.value.nameLatin, start: props.value.start, end: props.value.end})}
+            onMouseEnter={() => props.itemSelectFn({name: props.value.nameLatin, start: props.value.start, end: props.value.end, url: props.value.url})}
             onMouseLeave={() => {}}>
             <PeriodLabel color={props.color} start={start} end={end}>
                 {props.value.nameLatin}

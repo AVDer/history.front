@@ -43,6 +43,7 @@ const GET_LEADERS = gql`
         land
         start {y}
         end {y}
+        url
         }
     }
 `;
