@@ -33,7 +33,7 @@ const PeriodLabel = styled.p`
     padding: 0;
     position: absolute;
     
-    top: -70px;
+    top: -90px;
     left: 0;
 
     color: inherit;

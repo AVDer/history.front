@@ -34,7 +34,7 @@ const DateLabelStyle = styled.p`
     bottom: 0;
 `;
 
-const kColors = ["blue", "red", "green"];
+const kColors = ["blue", "red", "green", "yellow", "magenta", "cyan"];
 
 const GET_LEADERS = gql`
     query {
