@@ -1,0 +1,17 @@
+[Unit]
+Description=History.js frontend
+After=network.target history.back
+
+[Service]
+Type=simple
+User=root
+ExecStart=serve 
+Restart=always
+RestartSec=10
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=historyjsf
+
+[Install]
+WantedBy=multi-user.target
