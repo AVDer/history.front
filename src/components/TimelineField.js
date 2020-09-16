@@ -36,23 +36,29 @@ const DateLabelStyle = styled.p`
 
 const kColors = ["blue", "red", "green", "yellow", "magenta", "cyan"];
 
-const GET_LEADERS = gql`
-    query {
-        leaders {
-        nameLatin
-        land
-        start {y}
-        end {y}
-        url
-        }
-    }
-`;
-
 const TimelineField = (props) => {
 
     const [dateData, setDateData] = useState(kDefaultDate);
     const [landData, setLandData] = useState([]);
     props.updateDateSetter(setDateData, setLandData);
+
+    //const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
+    const timeStart = dateData.startDate;
+    const timeEnd = dateData.endDate;
+    const redlinePos = (dateData.redlineDate - timeStart) / (timeEnd - timeStart) * 90 + 5;
+
+    const GET_LEADERS = gql`
+        query {
+            leadersRange(start: ${parseInt(timeStart)}, end: ${parseInt(timeEnd)}) {
+            nameLatin
+            land
+            start {y}
+            end {y}
+            url
+            }
+        }
+    `;
+
     // query hook
     const { data, loading, error, fetchMore } = useQuery(GET_LEADERS);
 
@@ -61,12 +67,7 @@ const TimelineField = (props) => {
     // if there is an error fetching the data, display an error message
     if (error) return <p>Error!</p>;
 
-    let leader_data = data['leaders'];
-
-    //const lands = Array.from(new Set(leader_data.map(record => record.land).flat()));
-    const timeStart = dateData.startDate;
-    const timeEnd = dateData.endDate;
-    const redlinePos = (dateData.redlineDate - timeStart) / (timeEnd - timeStart) * 90 + 5;
+    let leader_data = data['leadersRange'];
 
     return (
         <TimelineFieldStyle>

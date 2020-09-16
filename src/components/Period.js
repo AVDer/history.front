@@ -47,6 +47,7 @@ const Period = (props) => {
     const left = (start) * 100 / (props.timeEnd - props.timeStart);
     const width = (end - start) * 100 / (props.timeEnd - props.timeStart);
     return (
+        <a href={'https://en.wikipedia.org' + props.value.url} target="_blank">
         <Test color={props.color} left={left} width={width}
             onMouseEnter={() => props.itemSelectFn({name: props.value.nameLatin, start: props.value.start, end: props.value.end, url: props.value.url})}
             onMouseLeave={() => {}}>
@@ -55,6 +56,7 @@ const Period = (props) => {
             </PeriodLabel>
             
         </Test>
+        </a>
     )
 }
 

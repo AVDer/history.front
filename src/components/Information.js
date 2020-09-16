@@ -5,6 +5,9 @@ import Chapter from './Chapter';
 //import logo from '../images/logo512.png';
 
 const dateToString = (dateStruct) => {
+    if (dateStruct.y === 2100) {
+        return 'Now';
+    }
     let annoDomino = true;
     let year = dateStruct.y;
     if (year < 0) {
